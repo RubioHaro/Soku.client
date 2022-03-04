@@ -1,0 +1,100 @@
+:root {
+  --primary-color: #f855a6;
+  --primary-color-soft: #ffadd6;
+  --contrast-color: #282c34;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.info{
+  font-size: 1rem;
+  padding-top: 5vh;
+}
+
+.board-input {
+  color: var(--primary-color-soft) !important;
+  background-color: transparent;
+  text-align: center;
+  border: 0cm;
+  transition: all 0.2s ease-in-out;
+  padding-bottom: 10vh;
+  font-size: 2rem;
+}
+
+.game-bnt {
+  background-color: var(--primary-color);
+  color: var(--contrast-color);
+}
+
+.board-input:focus-visible {
+  outline: none;
+  transform: scale(1.5);
+}
+
+input:disabled, .fixed-inp {
+  color: white !important; 
+}
+
+.board-input::selection {
+  color: white;
+  background: rgba(255, 0, 212, 0.452);
+}
+
+.board-error {
+  color: rgb(197, 0, 0) !important;
+  transform: scale(1.5);
+}
+
+.error-panel {
+  height: 10vh;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #d63384;
+  text-decoration: none;
+  transition-duration: 2s;
+}
+
+.puzzleBoard {
+  color: #ffadd6;
+}
+
+.App-link:hover {
+  color: #f855a6;
+  font-size: 30px;
+  /* transform: all 10s; */
+  transition-duration: 1s;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
