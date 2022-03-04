@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components'
 
 // import React from 'react';
-import { Button, Col, Container, Row, Table } from 'reactstrap';
+import { Button, Col, Container, Row, Spinner, Table } from 'reactstrap';
 import TextField from '@mui/material/TextField'
 import { useState } from 'react';
 import { getRestantOption, getSolution, validation } from './../../api/sodokuSolver'
@@ -11,6 +11,8 @@ function Board() {
     const elements = [[8, '-', '-'], ['-', '-', 7], ['-', 9, '-']];
     const [board, setBoard] = useState(elements)
     const [modified, setModified] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [checking, setChecking] = useState(false)
     const [error, setError] = useState(false)
     const [errorMessage, setErrorMessage] = useState("Nada parece funcionar :c")
     const stack = []
@@ -28,9 +30,15 @@ function Board() {
         event.target.select();
     }
 
+    function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+    }
+
+
     // let props = elements
 
     function call_getSolution() {
+        setLoading(true)
         if (modified) {
             setError(true)
             setErrorMessage("Ha modificado el cuadro, de momento get solution solo funciona sin haber ingreso valores,intenta refrescar la pagina")
@@ -39,17 +47,21 @@ function Board() {
                 setModified(true)
                 setBoard(getSolution(board))
                 clickHandler()
+
             } catch (error) {
                 setError()
                 setErrorMessage(error)
             }
-            call_checkBoard()
+            call_checkBoard(false)
         }
+        delay(1000).then(() => setLoading(false));
         // console.log("Inicializando sodokuSolver")
         // console.log("sodokusolver ended")
     }
 
-    function call_checkBoard() {
+    function call_checkBoard(withBool = true) {
+        setChecking(true && withBool)
+
         if (checkBoard(board)) {
             setError(true)
             setErrorMessage("Se ha resuelto el sudoku!")
@@ -58,6 +70,7 @@ function Board() {
             setError(true)
             setErrorMessage("Te has equivocado, revisa de nuevo")
         }
+        delay(1000).then(() => setChecking(false));
     }
 
     const call_validation = (value) => {
@@ -119,36 +132,52 @@ function Board() {
                 </div>
 
                 {/* <Table borderless> */}
-                    {/* <tbody className='puzzleBoard'> */}
-                    <Gri>
-                        {board.map((subboard, index) => {
-                            return (
-                                <Row key={index}>
-                                    {subboard.map((value, subindex) => {
+                {/* <tbody className='puzzleBoard'> */}
+                <div>
 
-                                        if (call_validation(value))
-                                            return (
-                                                <Col key={subindex} scope="row">
-                                                    <input type="text" disabled id={`board-input-${index}-${subindex}`} className='board-input fixed-inp' onClick={clickHandler} onChange={e => updateBoard(e.target.value, index, subindex)} required value={value} ></input>
-                                                </Col>
-                                            )
-                                        else
-                                            return (
-                                                <Col key={subindex} scope="row">
-                                                    <input type="text" id={`board-input-${index}-${subindex}`} className='board-input' onClick={clickHandler} onChange={e => updateBoard(e.target.value, index, subindex)} required value={value} ></input>
-                                                </Col>
-                                            )
-                                    })}
-                                </Row>
-                            )
-                        })}
+                    {board.map((subboard, index) => {
+                        return (
+                            <Row key={index}>
+                                {subboard.map((value, subindex) => {
 
-                    </Gri>
-                    {/* </tbody> */}
+                                    if (call_validation(value))
+                                        return (
+                                            <Col key={subindex} scope="row">
+                                                <input type="text" disabled id={`board-input-${index}-${subindex}`} className='board-input fixed-inp' onClick={clickHandler} onChange={e => updateBoard(e.target.value, index, subindex)} required value={value} ></input>
+                                            </Col>
+                                        )
+                                    else
+                                        return (
+                                            <Col key={subindex} scope="row">
+                                                <input type="text" id={`board-input-${index}-${subindex}`} className='board-input' onClick={clickHandler} onChange={e => updateBoard(e.target.value, index, subindex)} required value={value} ></input>
+                                            </Col>
+                                        )
+                                })}
+                            </Row>
+                        )
+                    })}
+
+                </div>
+                {/* </tbody> */}
                 {/* </Table> */}
 
-                <Button onClick={call_getSolution} className="game-bnt">Get Solution</Button>
-                <Button onClick={call_checkBoard} className="game-bnt">Check game</Button>
+
+                <Button onClick={call_getSolution} className="game-bnt">Get Solution&nbsp;
+                    {loading && <Spinner
+                        color="white"
+                        size="sm"
+                    >
+                        Loading...
+                    </Spinner>}
+                </Button>
+                <Button onClick={call_checkBoard} className="game-bnt">Check game &nbsp;
+                    {checking && <Spinner
+                        color="white"
+                        size="sm"
+                    >
+                        Loading...
+                    </Spinner>}
+                </Button>
             </Container>
         </>
     );
