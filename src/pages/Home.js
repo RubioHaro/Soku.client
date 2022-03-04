@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from './../logo.sun.png';
 
 function Home() {
@@ -7,14 +8,16 @@ function Home() {
             <p>
                 &gt; Se encontró archivo de configuración: <code>Kinich.Ahau.god</code>
             </p>
-            <a
+            <Link to="/play">
+                {/* <a
                 className="App-link"
                 href="https://reactjs.org"
                 target="_blank"
                 rel="noopener noreferrer"
-            >
-                run báaxal.exe
-            </a>
+            > */}
+                run báaxal.exe <small>Play</small>
+                {/* </a> */}
+            </Link>
         </>
     );
 }
