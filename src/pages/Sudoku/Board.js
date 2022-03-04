@@ -96,7 +96,7 @@ function Board() {
             document.getElementById(`board-input-${index}-${subindex}`).classList.remove("board-error")
             setError(false)
         } else {
-            if (new_value != "-") {
+            if (new_value !== "-") {
                 // console.log("ingresa un numero por favor")
                 // console.log(`board-input-${index}-${subindex}`)
                 document.getElementById(`board-input-${index}-${subindex}`).classList.add("board-error")
@@ -120,7 +120,7 @@ function Board() {
 
                 {/* <Table borderless> */}
                     {/* <tbody className='puzzleBoard'> */}
-                    <Row>
+                    <Gri>
                         {board.map((subboard, index) => {
                             return (
                                 <Row key={index}>
@@ -143,7 +143,7 @@ function Board() {
                             )
                         })}
 
-                    </Row>
+                    </Gri>
                     {/* </tbody> */}
                 {/* </Table> */}
 
