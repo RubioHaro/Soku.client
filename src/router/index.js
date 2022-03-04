@@ -13,7 +13,7 @@ function AppRouting() {
                 <Routes>
                     <Route path="/home" exact element={<Home />} />
                     <Route path="/play" exact element={<Game />} />
-                    <Route path="/" element={<Game />} />
+                    <Route path="/" element={<Home />} />
                     <Route path="*" element={<NotFoundError />} />
                 </Routes>
             </Router>
