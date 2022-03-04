@@ -8,7 +8,7 @@ function Home() {
             <p>
                 &gt; Se encontró archivo de configuración: <code>Kinich.Ahau.god</code>
             </p>
-            <Link to="/play">
+            <Link className='App-link' to="/play">
                 {/* <a
                 className="App-link"
                 href="https://reactjs.org"
