@@ -1,10 +1,7 @@
-import styled, { css } from 'styled-components'
-
 // import React from 'react';
-import { Button, Col, Container, Row, Spinner, Table } from 'reactstrap';
-import TextField from '@mui/material/TextField'
+import { Button, Col, Container, Row, Spinner } from 'reactstrap';
 import { useState } from 'react';
-import { getRestantOption, getSolution, validation } from './../../api/sodokuSolver'
+import { getSolution, validation } from './../../api/sodokuSolver'
 import { checkBoard } from "../../api/sodokuSolver";
 
 function Board() {

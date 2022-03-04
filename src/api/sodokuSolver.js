@@ -7,13 +7,22 @@ export const validation = function (value) {
 
 export const getRestantOption = function (board) {
     let stack = []
-    board.map((item, index) => {
-        board[index].map((subitem, k) => {
-            if (subitem !== "-" && validation(subitem)) {
-                stack.add(subitem)
-            }
-        })
-    });
+
+    for (let index = 0; index < board.length; index++) {
+        for (let subindex = 0; subindex < board[0].length; subindex++) {
+            if (board[index][subindex] !== "-" && validation(board[index][subindex]))
+                stack.add(board[index][subindex])
+        }
+            
+    }
+
+    // board.map((item, index) => {
+    //     board[index].map((subitem, k) => {
+    //         if (subitem !== "-" && validation(subitem))
+    //             stack.add(subitem)
+
+    //     })
+    // });
     return stack
 }
 
@@ -61,7 +70,7 @@ export const getSolution = function (matrix) {
     if (solveGrid(matrix)) {
         // console.log("new board")
         console.log(matrix)
-    } 
+    }
     // console.log("GOD")
     return matrix;
 }
